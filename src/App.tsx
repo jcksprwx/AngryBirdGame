@@ -4,6 +4,7 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { DesktopExportModal } from './components/DesktopExportModal';
 import { GameCanvas } from './components/GameCanvas';
 import { HudOverlay } from './components/HudOverlay';
 import { StatusModal } from './components/StatusModal';
@@ -27,6 +28,7 @@ export default function App() {
   });
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const [snapshot, setSnapshot] = useState<RunSnapshot | null>(null);
+  const [exeModalOpen, setExeModalOpen] = useState<boolean>(false);
 
   const worldRef = useRef<SimulationWorld>(createSimulationWorld(1));
 
@@ -203,8 +205,15 @@ export default function App() {
           bestScores={bestScores}
           onSelectLevel={handleSelectLevelOnTitle}
           onStartGame={handleStartFromTitle}
+          onOpenExeModal={() => setExeModalOpen(true)}
         />
       )}
+
+      {/* Desktop / Windows .EXE Exporter Modal */}
+      <DesktopExportModal
+        isOpen={exeModalOpen}
+        onClose={() => setExeModalOpen(false)}
+      />
 
       {/* World-Matched Gameplay HUD */}
       {gameState !== 'title' && (

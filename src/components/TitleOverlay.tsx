@@ -7,6 +7,7 @@ interface TitleOverlayProps {
   bestScores: Record<number, number>;
   onSelectLevel: (id: number) => void;
   onStartGame: () => void;
+  onOpenExeModal: () => void;
 }
 
 export const TitleOverlay: React.FC<TitleOverlayProps> = ({
@@ -15,6 +16,7 @@ export const TitleOverlay: React.FC<TitleOverlayProps> = ({
   bestScores,
   onSelectLevel,
   onStartGame,
+  onOpenExeModal,
 }) => {
   const activeLevel = LEVELS.find((l) => l.id === selectedLevelId) ?? LEVELS[0];
 
@@ -144,8 +146,8 @@ export const TitleOverlay: React.FC<TitleOverlayProps> = ({
           <p className="text-xs text-amber-200/75 leading-relaxed">{activeLevel.subtitle}</p>
         </div>
 
-        {/* Primary Start Action Button */}
-        <div className="flex items-center gap-4">
+        {/* Primary Start Action Button + Desktop/.EXE Exporter Button */}
+        <div className="flex flex-wrap items-center gap-3.5">
           <button
             type="button"
             data-start="true"
@@ -156,6 +158,17 @@ export const TitleOverlay: React.FC<TitleOverlayProps> = ({
             className="px-8 py-4 rounded-xl bg-[#e11d48] hover:bg-[#f43f5e] active:scale-95 text-white font-display font-extrabold text-xl tracking-wide border-2 border-rose-200 shadow-[0_6px_0_#881337,0_12px_24px_rgba(0,0,0,0.6)] transition-all cursor-pointer whitespace-nowrap shrink-0"
           >
             Launch Siege
+          </button>
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.currentTarget.blur();
+              onOpenExeModal();
+            }}
+            className="px-5 py-4 rounded-xl bg-[#271911]/95 hover:bg-[#3b2518] active:scale-95 text-amber-200 font-display font-bold text-sm tracking-wide border-2 border-[#b45309] shadow-[0_6px_0_#451a03,0_10px_20px_rgba(0,0,0,0.55)] transition-all cursor-pointer whitespace-nowrap shrink-0"
+          >
+            Desktop / .EXE
           </button>
         </div>
       </div>

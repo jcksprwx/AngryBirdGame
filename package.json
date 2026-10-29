@@ -1,14 +1,35 @@
 {
-  "name": "react-example",
+  "name": "feather-and-fury",
+  "productName": "Feather & Fury: Siege of Cragkeep",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "main": "electron/main.cjs",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
-    "build": "vite build",
+    "build": "node scripts/build-standalone.mjs && vite build",
+    "build:standalone": "node scripts/build-standalone.mjs",
+    "dist:win": "npm run build && npx --yes electron-builder --win portable",
     "preview": "vite preview",
-    "clean": "rm -rf dist server.js",
+    "clean": "rm -rf dist release server.js",
     "lint": "tsc --noEmit"
+  },
+  "build": {
+    "appId": "com.cragkeep.featherandfury",
+    "productName": "FeatherAndFury",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*"
+    ],
+    "win": {
+      "target": [
+        "portable"
+      ],
+      "artifactName": "FeatherAndFury-Portable.${ext}"
+    }
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

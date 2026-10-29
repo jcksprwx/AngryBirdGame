@@ -88,3 +88,16 @@ test('radial explosion damages blocks, detonates TNT, and awards score on enemy 
   assert.equal(finalOutcome, 'victory');
   assert.ok(calculateStarRating(1, world.score) >= 2);
 });
+
+import { buildQuickWindowsLauncherScript, getDesktopExportSpec } from './exporter';
+
+test('desktop exporter provides valid Windows .exe spec and batch launcher script', () => {
+  const spec = getDesktopExportSpec();
+  assert.equal(spec.executableName, 'FeatherAndFury-Portable.exe');
+  assert.ok(spec.electronBuildCommand.includes('dist:win'));
+
+  const script = buildQuickWindowsLauncherScript('file:///C:/Games/FeatherAndFury.html');
+  assert.ok(script.includes('msedge --app='));
+  assert.ok(script.includes('--window-size=1440,900'));
+});
+
