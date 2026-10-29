@@ -1,0 +1,6 @@
+{
+  "name": "Feather & Fury: Siege of Cragkeep",
+  "description": "A tactile 2D physics slingshot siege game with destructible timber, ice, and stone fortresses, explosive chain reactions, and specialized avian strikers.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
